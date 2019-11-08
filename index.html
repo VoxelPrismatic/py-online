@@ -59,6 +59,9 @@
             global stdin, thing
             thing = ">>> "
             stdin = ""
+            def editable():
+                doc["v"].contentEditable = 'true'
+                doc["v"].bind("keydown", keys)
             def serial(st):
                 st = st.replace("&", "&amp;")
                 st = st.replace("<", "&lt;")
@@ -86,6 +89,7 @@
                     thing += "    "
                     v.id = "n"
                     c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
+                    editable()
                     return
                 if stdin.endswith("\n"):
                     try:
@@ -102,11 +106,12 @@
                     v.Id = "n"
                     c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
                     stdin = ""
+                    editable()
             def keys(k):
                 if k.code == "Enter":
                     interpret()
             c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
-            doc["v"].bind("keydown", keys)
+            editable()
         </script>
     </body>
 </html>
