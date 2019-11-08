@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- EMBED STUFF -->
+        <meta property="og:title" content="PYTHON INTERPRETER ;]"/>
+        <meta property="og:description" content="An online Python console"/>
+        <!-- OTHER THINGS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+        <meta name="description" content="An online Python console"/>
+        <!-- FONTS -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono"/>   
+        <!-- SCRIPTS -->
+        <script src="https://cdn.jsdelivr.net/gh/brython-dev/brython/www/src/brython.js" id="brython_load"></script>
+        <script src="https://cdn.jsdelivr.net/gh/brython-dev/brython/www/src/brython_stdlib.js" id="brython_mods"></script>
+        <script type="text/javascript" src="loader/console.js" id="fns_js" async></script>
+        <title>PYTHON ;]</title>
+        <style>
+            .bg {
+                background-color: #112222;
+                color: #00ffff;
+                font-family: "Ubuntu Mono";
+            } .console {
+                width: 90vw;
+                height: 90vh;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                max-height: 90vh;
+                overflow-y: auto;
+                overflow-wrap: break-word;
+            } .err {
+                color: #ff0000;
+            } .con {
+                color: #00ff00;
+            } .rtn {
+                color: #ff0088;
+            }
+    </head>
+    <body class="bg" onload="brython()">
+        <div class="console" onload="this.contenteditable=true;"
+        </div>
+        <script type="text/python">
+            
+        </script>
+    </body>
+</html>
