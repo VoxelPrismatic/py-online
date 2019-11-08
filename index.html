@@ -31,6 +31,7 @@
                 max-height: 90vh;
                 overflow-y: auto;
                 overflow-wrap: break-word;
+                color: #00ffff;
             } .err {
                 color: #ff0000;
             } .con {
@@ -40,7 +41,7 @@
             }
         </style>
     </head>
-    <body class="bg" onload="brython()">
+    <body class="bg" onload="brython({debug:1})">
         <div class="console" onclick="this.contentEditable='true';" id="c">
         </div>
         <script type="text/python">
@@ -73,10 +74,10 @@
                     stdin = c.innerHTML.split("<br>")[-1].split("</span>", 1)[1].replace("\u200b \u200b", " ")
                 c.innerHTML += "<br>"
                 if stdin.endswith(":"):
-                    if thing == ">>> ":
-                        thing = "... "
+                    if thing == ">>>":
+                        thing = "..."
                     thing += "    "
-                    c.innerHTML += "<span class='con'>"+thing[:4]+"</span>"+thing[4:].replace(" ", "\u200b \u200b")
+                    c.innerHTML += "<span class='con'>"+thing[:3]+"</span>"+(" "+thing[3:]).replace(" ", "\u200b \u200b")
                     return
                 if stdin.endswith("\n"):
                     try:
@@ -89,14 +90,14 @@
                         c.innerHTML += "<span class='rtn'>"+serial(typ)+"</span><br>"
                     except Exception as ex:
                         c.innerHTML += "<span class='err'>"+serial(str(ex))+"</span><br>"
-                    thing = ">>> "
-                    c.innerHTML += "<span class='con'>"+serial(thing)+"</span>"
+                    thing = ">>>"
+                    c.innerHTML += "<span class='con'>"+serial(thing)+"</span>\u200b \u200b"
                     stdin = ""
             def keys(k):
                 if k.code == "Enter":
                     interpret()
             c.bind("keydown", keys)
-            c.innerHTML += "<span class='con'>"+serial(thing)+"</span>"
+            c.innerHTML += "<span class='con'>"+serial(thing)+"</span>\u200b \u200b"
         </script>
     </body>
 </html>
