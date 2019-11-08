@@ -38,11 +38,18 @@
                 color: #00ff00;
             } .rtn {
                 color: #ff0088;
+            } .edt {
+                width: 90vw;
+                height: 90vh;
+                overflow-y: auto;
+                overflow-wrap: break-word;
+            } .out {
+                color: #00ffff;
             }
         </style>
     </head>
     <body class="bg" onload="brython({debug:1})">
-        <div class="console" onclick="this.contentEditable='true';" id="c">
+        <div class="console" id="c">
         </div>
         <script type="text/python">
             from browser import document as doc, html, window as win
@@ -61,23 +68,24 @@
                 return st
             def print(*args, end = "\n", sep = " "):
                 st = sep.join(args)+end
-                st = serial(st)
-                doc["c"] += st
+                doc["c"] <= html.DIV(serial(st), Class="out")
             def null_print(*args, **kwargs):
                 pass
             def interpret():
                 global stdin, thing
                 c = doc["c"]
+                v = doc["v"]
                 if stdin:
-                    stdin += "\n"+c.innerHTML.split("<br>")[-1].split("</span>", 1)[1].replace("\u200b \u200b", " ")
+                    stdin += "\n"+v.innerHTML.split("</span>")[1]
                 else:
-                    stdin = c.innerHTML.split("<br>")[-1].split("</span>", 1)[1].replace("\u200b \u200b", " ")
+                    stdin = v.innerHTML.split("</span>")[1]
                 c.innerHTML += "<br>"
                 if stdin.endswith(":"):
                     if thing == ">>>":
                         thing = "..."
                     thing += "    "
-                    c.innerHTML += "<span class='con'>"+thing[:3]+"</span>"+(" "+thing[3:]).replace(" ", "\u200b \u200b")
+                    v.id = "n"
+                    c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
                     return
                 if stdin.endswith("\n"):
                     try:
@@ -87,17 +95,18 @@
                         except:
                             out = None
                         typ = str(type(out)).split("'")[1]
-                        c.innerHTML += "<span class='rtn'>"+serial(typ)+"</span><br>"
+                        c <= html.DIV(serial(str(ex)), Class="rtn")
                     except Exception as ex:
-                        c.innerHTML += "<span class='err'>"+serial(str(ex))+"</span><br>"
+                        c <= html.DIV(serial(str(ex)), Class="err")
                     thing = ">>>"
-                    c.innerHTML += "<span class='con'>"+serial(thing)+"</span>\u200b \u200b"
+                    v.Id = "n"
+                    c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
                     stdin = ""
             def keys(k):
                 if k.code == "Enter":
                     interpret()
-            c.bind("keydown", keys)
-            c.innerHTML += "<span class='con'>"+serial(thing)+"</span>\u200b \u200b"
+            c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
+            doc["v"].bind("keydown", keys)
         </script>
     </body>
 </html>
