@@ -40,10 +40,62 @@
             }
     </head>
     <body class="bg" onload="brython()">
-        <div class="console" onload="this.contenteditable=true;"
+        <div class="console" onload="this.contenteditable=true;" id="c">
         </div>
         <script type="text/python">
-            
+            from browser import document as doc, html, window as win
+            global c
+            c = doc["c"]
+            c.innerHTML += f"Brython Console - Emulating Python v{win.__BRYTHON__.__MAGIC__}<br>"
+            global stdin, thing
+            thing = ">>> "
+            stdin = ""
+            def serial(st):
+                st = st.replace("&", "&amp;")
+                st = st.replace("<", "&lt;")
+                st = st.replace(">", "&gt;")
+                st = st.replace(" ", "\u200b \u200b")
+                st = st.replace("\n", "<br>")
+                return st
+            def print(*args, end = "\n", sep = " "):
+                st = sep.join(args)+end
+                st = serial(st)
+                doc["c"] += st
+            def null_print(*args, **kwargs):
+                pass
+            def interpret():
+                global stdin, thing
+                c = doc["c"]
+                if stdin:
+                    stdin += "\n"+c.innerHTML.split("<br>")[-1].split("</span>", 1)[1].replace("\u200b \u200b", " ")
+                else:
+                    stdin = c.innerHTML.split("<br>")[-1].split("</span>", 1)[1].replace("\u200b \u200b", " ")
+                c.innerHTML += "<br>"
+                if stdin.endswith(":"):
+                    if thing == ">>> ":
+                        thing = "... "
+                    thing += "    "
+                    c.innerHTML += "<span class='con'>"+thing[:4]+"</span>"+thing[4:].replace(" ", "\u200b \u200b")
+                    return
+                if stdin.endswith("\n"):
+                    try:
+                        exec(stdin)
+                        try:
+                            out = eval(stdin, {"print": null_print})
+                        except:
+                            out = None
+                        typ = str(type(out)).split("'")[1]
+                        c.innerHTML += "<span class='rtn'>"+serial(typ)+"</span><br>"
+                    except Exception as ex:
+                        c.innerHTML += "<span class='err'>"+serial(str(ex))+"</span><br>"
+                    thing = ">>> "
+                    c.innerHTML += "<span class='con'>"+serial(thing)+"</span>"
+                    stdin = ""
+            def keys(k):
+                if k.code == "Enter":
+                    interpret()
+            c.bind("keydown", keys)
+            c.innerHTML += "<span class='con'>"+serial(thing)+"</span>"
         </script>
     </body>
 </html>
