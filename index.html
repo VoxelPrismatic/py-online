@@ -109,6 +109,7 @@
                     stdin = ""
                     editable()
             def keys(k):
+                print(k.key)
                 if k.code == "Enter":
                     interpret()
             c <= html.DIV(html.SPAN(serial(thing), Class="con").outerHTML + "\u200b \u200b", Class="edt", Id="v")
