@@ -88,9 +88,9 @@
                 c = doc["c"]
                 v = doc["v"]
                 if stdin:
-                    stdin += "\n"+v.innerHTML.split("</span>", 1)[1].replace("\u200b \u200b", " ")[1:]
+                    stdin += "\n"+v.innerHTML.replace("\u200b \u200b", " ")[1:]
                 else:
-                    stdin = v.innerHTML.split("</span>", 1)[1].replace("\u200b \u200b", " ")[1:]
+                    stdin = v.innerHTML.replace("\u200b \u200b", " ")[1:]
                 c.innerHTML += "<br>"
                 if stdin.endswith(":"):
                     if thing == ">>> ":
@@ -115,8 +115,7 @@
                     stdin = ""
                     editable()
             def keys(k):
-                print(k.key)
-                if k.code == "Enter":
+                if k.key == "Enter":
                     interpret()
             c <= arrow(thing)
             editable()
