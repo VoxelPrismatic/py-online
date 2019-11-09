@@ -59,7 +59,7 @@ def interpret():
                 out = None
             print("stdout")
             typ = str(type(out)).split("'")[1]
-            c <= html.DIV(serial(str(ex)), Class="rtn")
+            c <= html.DIV(serial(f"<{typ}> `{out}'"), Class="rtn")
         except Exception as ex:
             print("stderr")
             c <= html.DIV(serial(str(ex)), Class="err")
