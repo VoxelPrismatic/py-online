@@ -55,7 +55,7 @@ def interpret():
         if stdin.endswith(":"):
             thing += "    "
         arrow(thing)
-        timer.set_timeout(500, focuser)
+        timer.set_timeout(focuser, 500)
         return
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
@@ -71,7 +71,7 @@ def interpret():
             c <= html.DIV(serial(str(ex)), Class="err")
         thing = ">>> "
         arrow(thing)
-        timer.set_timeout(500, focuser)
+        timer.set_timeout(focuser, 500)
         stdin = ""
   except Exception as ex:
     print(ex)
@@ -79,4 +79,4 @@ def keys(k):
     if k.key == "Enter":
         interpret()
 arrow(thing)
-timer.set_timeout(500, focuser)
+timer.set_timeout(focuser, 500)
