@@ -15,7 +15,7 @@ def arrow(thing):
         pass
     v = html.DIV("", Class="out")
     v <= html.SPAN(serial(thing[:3]), Class="con")
-    v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Id="v")
+    v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="con", Id="v")
     doc["c"] <= v
     v = doc["v"]
     v.bind("keydown", keys)
