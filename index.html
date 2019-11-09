@@ -89,11 +89,12 @@
                 global stdin, thing
                 c = doc["c"]
                 v = doc["v"]
+                print("got stuff")
                 if stdin:
                     stdin += "\n"+v.innerHTML.replace("\u200b \u200b", " ")[1:]
                 else:
                     stdin = v.innerHTML.replace("\u200b \u200b", " ")[1:]
-                c.innerHTML += "<br>"
+                print("stdin")
                 if stdin.endswith(":"):
                     if thing == ">>> ":
                         thing = "... "
@@ -101,6 +102,7 @@
                     c <= arrow(thing)
                     editable()
                     return
+                print("thingy")
                 if stdin.endswith("\n"):
                     try:
                         exec(stdin)
