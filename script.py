@@ -17,6 +17,7 @@ def arrow(thing):
     v = html.DIV("", Class="out")
     v <= html.SPAN(serial(thing[:3]), Class="con")
     v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="edt", Id="v")
+    v.focus()
     return v
 def serial(st):
     st = st.replace("&", "&amp;")
