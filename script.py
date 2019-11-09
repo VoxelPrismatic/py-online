@@ -1,7 +1,7 @@
 from browser import document as doc, html, window as win, timer
 global c
 c = doc["c"]
-c.innerHTML += f"<div style='text-align: center'>----- PYTHON {win.__BRYTHON__.__MAGIC__} -----</div><br>READY<br>"
+c.innerHTML += f"<div style='text-align: center'>-------- PYTHON {win.__BRYTHON__.__MAGIC__} ;] --------</div>"
 global stdin, thing
 thing = ">>> "
 stdin = ""
