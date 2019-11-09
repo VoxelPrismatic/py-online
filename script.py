@@ -10,8 +10,11 @@ def editable():
     doc["v"].bind("keydown", keys)
 def arrow(thing):
     try:
-        doc["v"].contentEditable = 'false'
-        doc["v"].id = "n"
+        v = doc["v"]
+        v.contentEditable = 'false'
+        v.id = "n"
+        v.unbind("keydown")
+        v.
     except:
         pass
     v = html.DIV("", Class="out")
