@@ -62,9 +62,9 @@ def interpret():
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         try:
-            exec(stdin, globals, globals)
+            exec(stdin, globals(), globals())
             try:
-                out = eval(stdin, locals={"print": null_print}, globals=globals)
+                out = eval(stdin, locals={"print": null_print}, globals=globals())
             except:
                 out = None
             typ = str(type(out)).split("'")[1]
