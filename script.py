@@ -45,6 +45,11 @@ def interpret():
     if stdin.endswith(":") or ('.' in thing and nl):
         if thing == ">>> ":
             thing = "... "
+        thing = thing.strip()+" "
+        for x in nl:
+            if x != " ":
+                break
+            thing += " "
         if stdin.endswith(":"):
             thing += "    "
         arrow(thing)
