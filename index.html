@@ -84,6 +84,7 @@
             def null_print(*args, **kwargs):
                 pass
             def interpret():
+              try:
                 print("interpreter")
                 global stdin, thing
                 c = doc["c"]
@@ -115,6 +116,8 @@
                     c <= arrow(thing)
                     stdin = ""
                     editable()
+              except Exception as ex:
+                  print(ex)
             def keys(k):
                 if k.key == "Enter":
                     interpret()
