@@ -11,6 +11,7 @@ def arrow(thing):
         v.contentEditable = 'false'
         v.id = "n"
         v.unbind("keydown")
+        v.blur()
     except:
         pass
     doc["c"] <= html.DIV()
@@ -19,7 +20,6 @@ def arrow(thing):
     v = doc["v"]
     v.bind("keydown", keys)
     v.contentEditable = 'true'
-    v.focus()
 def serial(st):
     st = st.replace("&", "&amp;")
     st = st.replace("<", "&lt;")
@@ -68,6 +68,7 @@ def interpret():
             c <= html.DIV(serial(str(ex)), Class="err")
         thing = ">>> "
         arrow(thing)
+        doc["v"].focus()
         stdin = ""
   except Exception as ex:
     print(ex)
@@ -75,3 +76,4 @@ def keys(k):
     if k.key == "Enter":
         interpret()
 arrow(thing)
+doc["v"].focus()
