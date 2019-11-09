@@ -1,4 +1,4 @@
-from browser import document as doc, html, window as win
+from browser import document as doc, html, window as win, timer
 global c
 c = doc["c"]
 c.innerHTML += f"PYTHON {win.__BRYTHON__.__MAGIC__} ;]<br>READY<br>"
@@ -55,7 +55,7 @@ def interpret():
         if stdin.endswith(":"):
             thing += "    "
         arrow(thing)
-        win.setTimeout(500, focuser)
+        timer.set_timeout(500, focuser)
         return
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
@@ -71,7 +71,7 @@ def interpret():
             c <= html.DIV(serial(str(ex)), Class="err")
         thing = ">>> "
         arrow(thing)
-        win.setTimeout(500, focuser)
+        timer.set_timeout(500, focuser)
         stdin = ""
   except Exception as ex:
     print(ex)
@@ -79,4 +79,4 @@ def keys(k):
     if k.key == "Enter":
         interpret()
 arrow(thing)
-win.setTimeout(500, focuser)
+timer.set_timeout(500, focuser)
