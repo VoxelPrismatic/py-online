@@ -62,6 +62,12 @@
             def editable():
                 doc["v"].contentEditable = 'true'
                 doc["v"].bind("keydown", keys)
+            def arrow(thing):
+                doc["v"].id = "n"
+                v = html.DIV("", class="out")
+                v <= html.SPAN(serial(thing[:3]), Class="con")
+                v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="edt", Id="v")
+                return v
             def serial(st):
                 st = st.replace("&", "&amp;")
                 st = st.replace("<", "&lt;")
@@ -79,17 +85,16 @@
                 c = doc["c"]
                 v = doc["v"]
                 if stdin:
-                    stdin += "\n"+v.innerHTML.split("</span>", 1)[1].replace("\u200b \u200b", " ")
+                    stdin += "\n"+v.innerHTML.split("</span>", 1)[1].replace("\u200b \u200b", " ")[1:]
                 else:
-                    stdin = v.innerHTML.split("</span>", 1)[1].replace("\u200b \u200b", " ")
+                    stdin = v.innerHTML.split("</span>", 1)[1].replace("\u200b \u200b", " ")[1:]
                 c.innerHTML += "<br>"
                 if stdin.endswith(":"):
-                    if thing == ">>>":
-                        thing = "..."
+                    if thing == ">>> ":
+                        thing = "... "
                     thing += "    "
                     v.id = "n"
-                    c <= html.DIV(html.SPAN(serial(thing[:3]), Class="con").outerHTML + "\u200b \u200b" + serial(thing[3:]),
-                                 Class="edt", Id="v")
+                    c <= arrow(thing)
                     editable()
                     return
                 if stdin.endswith("\n"):
@@ -103,16 +108,16 @@
                         c <= html.DIV(serial(str(ex)), Class="rtn")
                     except Exception as ex:
                         c <= html.DIV(serial(str(ex)), Class="err")
-                    thing = ">>>"
+                    thing = ">>> "
                     v.Id = "n"
-                    c <= html.DIV(html.SPAN(serial(thing), Class="con").outerHTML + "\u200b \u200b", Class="edt", Id="v")
+                    c <= arrow(thing)
                     stdin = ""
                     editable()
             def keys(k):
                 print(k.key)
                 if k.code == "Enter":
                     interpret()
-            c <= html.DIV(html.SPAN(serial(thing), Class="con").outerHTML + "\u200b \u200b", Class="edt", Id="v")
+            c <= arrow(thing)
             editable()
         </script>
     </body>
