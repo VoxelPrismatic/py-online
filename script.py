@@ -49,7 +49,6 @@ def interpret():
         return
     
     if stdin.endswith("\n") and ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
-        print("here")
         try:
             exec(stdin)
             try:
