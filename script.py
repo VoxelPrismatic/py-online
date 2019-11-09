@@ -41,7 +41,9 @@ def interpret():
     global stdin, thing
     c = doc["c"]
     v = doc["v"]
-    nl = v.innerHTML.replace("\u200b", "").strip()
+    nl = v.innerHTML.replace("\u200b", "")[1:]
+    while nl[-1] == " ":
+        nl = nl[:-1]
     if stdin:
         stdin += "\n"+nl
     else:
