@@ -48,7 +48,7 @@ def interpret():
         editable()
         return
     
-    if stdin.endswith("\n") and ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
+    if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         try:
             exec(stdin)
             try:
