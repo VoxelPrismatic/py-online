@@ -39,14 +39,16 @@ def interpret():
         stdin += "\n"+v.innerHTML.replace("\u200b", "").strip()
     else:
         stdin = v.innerHTML.replace("\u200b", "").strip()
-    if stdin.endswith(":"):
+    if stdin.endswith(":") or '.' in thing:
         if thing == ">>> ":
             thing = "... "
-        thing += "    "
+        if stdin.endswith(":"):
+            thing += "    "
         c <= arrow(thing)
         editable()
         return
-    if stdin.endswith("\n") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
+    
+    if stdin.endswith("\n") and ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         print("here")
         try:
             exec(stdin)
