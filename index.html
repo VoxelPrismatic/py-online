@@ -8,123 +8,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8"/>
         <meta name="description" content="An online Python console"/>
-        <!-- FONTS -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono"/>   
+        <!-- STYLES -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono"/>
+        <link rel="stylesheet" href="style.css"/>
         <!-- SCRIPTS -->
         <script src="https://cdn.jsdelivr.net/gh/brython-dev/brython/www/src/brython.js" id="brython_load"></script>
         <script src="https://cdn.jsdelivr.net/gh/brython-dev/brython/www/src/brython_stdlib.js" id="brython_mods"></script>
-        <script type="text/javascript" src="loader/console.js" id="fns_js" async></script>
         <title>PYTHON ;]</title>
-        <style>
-            .bg {
-                background-color: #112222;
-                color: #00ffff;
-                font-family: "Ubuntu Mono";
-            } .console {
-                width: 90vw;
-                height: 90vh;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                margin: auto;
-                max-height: 90vh;
-                overflow-y: auto;
-                overflow-wrap: break-word;
-                color: #00ffff;
-            } .err {
-                color: #ff0000;
-            } .con {
-                color: #00ff00;
-            } .rtn {
-                color: #ff0088;
-            } .edt {
-                width: 90vw;
-                height: 90vh;
-                overflow-y: auto;
-                overflow-wrap: break-word;
-            } .out {
-                color: #00ffff;
-            }
-        </style>
     </head>
     <body class="bg" onload="brython({debug:1})">
         <div class="console" id="c">
         </div>
-        <script type="text/python">
-            from browser import document as doc, html, window as win
-            global c
-            c = doc["c"]
-            c.innerHTML += f"Brython Console // Python v{win.__BRYTHON__.__MAGIC__}<br>"
-            global stdin, thing
-            thing = ">>> "
-            stdin = ""
-            def editable():
-                doc["v"].contentEditable = 'true'
-                doc["v"].bind("keydown", keys)
-            def arrow(thing):
-                try:
-                    doc["v"].id = "n"
-                except:
-                    pass
-                v = html.DIV("", Class="out")
-                v <= html.SPAN(serial(thing[:3]), Class="con")
-                v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="edt", Id="v")
-                return v
-            def serial(st):
-                st = st.replace("&", "&amp;")
-                st = st.replace("<", "&lt;")
-                st = st.replace(">", "&gt;")
-                st = st.replace(" ", "\u200b \u200b")
-                st = st.replace("\n", "<br>")
-                return st
-            def print(*args, end = "\n", sep = " "):
-                st = sep.join(args)+end
-                doc["c"] <= html.DIV(serial(st), Class="out")
-            def null_print(*args, **kwargs):
-                pass
-            def interpret():
-              try:
-                print("interpreter")
-                global stdin, thing
-                c = doc["c"]
-                v = doc["v"]
-                print("got stuff")
-                if stdin:
-                    stdin += "\n"+v.innerHTML.replace("\u200b \u200b", " ")[1:]
-                else:
-                    stdin = v.innerHTML.replace("\u200b \u200b", " ")[1:]
-                print("stdin")
-                if stdin.endswith(":"):
-                    if thing == ">>> ":
-                        thing = "... "
-                    thing += "    "
-                    c <= arrow(thing)
-                    editable()
-                    return
-                print("thingy")
-                if stdin.endswith("\n"):
-                    try:
-                        exec(stdin)
-                        try:
-                            out = eval(stdin, {"print": null_print})
-                        except:
-                            out = None
-                        typ = str(type(out)).split("'")[1]
-                        c <= html.DIV(serial(str(ex)), Class="rtn")
-                    except Exception as ex:
-                        c <= html.DIV(serial(str(ex)), Class="err")
-                    thing = ">>> "
-                    c <= arrow(thing)
-                    stdin = ""
-                    editable()
-              except Exception as ex:
-                  print(ex)
-            def keys(k):
-                if k.key == "Enter":
-                    interpret()
-            c <= arrow(thing)
-            editable()
-        </script>
+        <script type="text/python" src="script.py"</script>
     </body>
 </html>
