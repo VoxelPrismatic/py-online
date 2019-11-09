@@ -29,7 +29,7 @@ def serial(st):
     st = st.replace(" ", "\u200b \u200b")
     st = st.replace("\n", "<br>")
     return st
-def print(*args, end = "\n", sep = " "):
+def new_print(*args, end = "\n", sep = " "):
     st = sep.join(str(arg) for arg in args)+end
     doc["c"] <= html.DIV(serial(st), Class="out")
 def null_print(*args, **kwargs):
@@ -63,8 +63,8 @@ def interpret():
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         try:
             all = globals()
-            all["print"] = print
-            exec(stdin.strip(), all, all)
+            all["print"] = new_print
+            exec(stdin.strip(), locals = all, globals = all)
             try:
                 out = eval(stdin.strip(), locals={"print": null_print}, globals=all)
             except:
