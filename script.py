@@ -11,7 +11,6 @@ def editable():
 def arrow(thing):
     try:
         doc["v"].contentEditable = 'false'
-        doc["v"].innerHTML = doc["v"].innerHTML[:-4]
         doc["v"].id = "n"
     except:
         pass
