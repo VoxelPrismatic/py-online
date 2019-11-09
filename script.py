@@ -31,11 +31,9 @@ def null_print(*args, **kwargs):
     pass
 def interpret():
   try:
-    print("interpreter")
     global stdin, thing
     c = doc["c"]
     v = doc["v"]
-    print("got stuff")
     if stdin:
         stdin += "\n"+v.innerHTML.replace("\u200b \u200b", " ")[1:]
     else:
@@ -48,17 +46,22 @@ def interpret():
         c <= arrow(thing)
         editable()
         return
-    print("thingy")
-    if stdin.endswith("\n"):
+    print("hi")
+    if stdin.endswith("\n") or ">" in thing:
+        print("here")
         try:
+            print("exec")
             exec(stdin)
             try:
+                print("eval")
                 out = eval(stdin, {"print": null_print})
             except:
                 out = None
+            print("stdout")
             typ = str(type(out)).split("'")[1]
             c <= html.DIV(serial(str(ex)), Class="rtn")
         except Exception as ex:
+            print("stderr")
             c <= html.DIV(serial(str(ex)), Class="err")
         thing = ">>> "
         c <= arrow(thing)
