@@ -32,6 +32,8 @@ def print(*args, end = "\n", sep = " "):
     doc["c"] <= html.DIV(serial(st), Class="out")
 def null_print(*args, **kwargs):
     pass
+def focuser():
+    doc["v"].focus()
 def interpret():
   try:
     global stdin, thing
@@ -53,6 +55,7 @@ def interpret():
         if stdin.endswith(":"):
             thing += "    "
         arrow(thing)
+        win.setTimeout(500, focuser)
         return
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
@@ -68,7 +71,7 @@ def interpret():
             c <= html.DIV(serial(str(ex)), Class="err")
         thing = ">>> "
         arrow(thing)
-        doc["v"].focus()
+        win.setTimeout(500, focuser)
         stdin = ""
   except Exception as ex:
     print(ex)
@@ -76,4 +79,4 @@ def keys(k):
     if k.key == "Enter":
         interpret()
 arrow(thing)
-doc["v"].focus()
+win.setTimeout(500, focuser)
