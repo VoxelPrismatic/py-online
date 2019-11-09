@@ -79,16 +79,17 @@
                 c = doc["c"]
                 v = doc["v"]
                 if stdin:
-                    stdin += "\n"+v.innerHTML.split("</span>")[1]
+                    stdin += "\n"+v.innerHTML.split("</span>", 1)[1].replace("\u200b \u200b", " ")
                 else:
-                    stdin = v.innerHTML.split("</span>")[1]
+                    stdin = v.innerHTML.split("</span>", 1)[1].replace("\u200b \u200b", " ")
                 c.innerHTML += "<br>"
                 if stdin.endswith(":"):
                     if thing == ">>>":
                         thing = "..."
                     thing += "    "
                     v.id = "n"
-                    c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
+                    c <= html.DIV(html.SPAN(serial(thing[:3]), Class="con").outerHTML + "\u200b \u200b" + serial(thing[3:]),
+                                 Class="edt", Id="v")
                     editable()
                     return
                 if stdin.endswith("\n"):
@@ -104,13 +105,13 @@
                         c <= html.DIV(serial(str(ex)), Class="err")
                     thing = ">>>"
                     v.Id = "n"
-                    c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
+                    c <= html.DIV(html.SPAN(serial(thing), Class="con").outerHTML + "\u200b \u200b", Class="edt", Id="v")
                     stdin = ""
                     editable()
             def keys(k):
                 if k.code == "Enter":
                     interpret()
-            c <= html.DIV(html.SPAN(serial(thing), Class="con"), Class="edt", Id="v")
+            c <= html.DIV(html.SPAN(serial(thing), Class="con").outerHTML + "\u200b \u200b", Class="edt", Id="v")
             editable()
         </script>
     </body>
