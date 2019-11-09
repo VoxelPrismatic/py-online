@@ -28,7 +28,7 @@ def serial(st):
     st = st.replace("\n", "<br>")
     return st
 def print(*args, end = "\n", sep = " "):
-    st = sep.join(args)+end
+    st = sep.join(str(arg) for arg in args)+end
     doc["c"] <= html.DIV(serial(st), Class="out")
 def null_print(*args, **kwargs):
     pass
