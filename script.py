@@ -38,11 +38,12 @@ def interpret():
     global stdin, thing
     c = doc["c"]
     v = doc["v"]
+    nl = v.innerHTML.replace("\u200b", "").strip()
     if stdin:
-        stdin += "\n"+v.innerHTML.replace("\u200b", "").strip()
+        stdin += "\n"+nl
     else:
-        stdin = v.innerHTML.replace("\u200b", "").strip()
-    if stdin.endswith(":") or '.' in thing:
+        stdin = nl
+    if stdin.endswith(":") or ('.' in thing and nl):
         if thing == ">>> ":
             thing = "... "
         if stdin.endswith(":"):
