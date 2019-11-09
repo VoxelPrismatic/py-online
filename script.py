@@ -20,7 +20,6 @@ def arrow(thing):
     v.bind("keydown", keys)
     v.contentEditable = 'true'
     v.focus()
-    return v
 def serial(st):
     st = st.replace("&", "&amp;")
     st = st.replace("<", "&lt;")
@@ -48,7 +47,7 @@ def interpret():
             thing = "... "
         if stdin.endswith(":"):
             thing += "    "
-        c <= arrow(thing)
+        arrow(thing)
         return
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
@@ -63,11 +62,11 @@ def interpret():
         except Exception as ex:
             c <= html.DIV(serial(str(ex)), Class="err")
         thing = ">>> "
-        c <= arrow(thing)
+        arrow(thing)
         stdin = ""
   except Exception as ex:
     print(ex)
 def keys(k):
     if k.key == "Enter":
         interpret()
-c <= arrow(thing)
+arrow(thing)
