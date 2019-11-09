@@ -13,12 +13,9 @@ def arrow(thing):
         v.unbind("keydown")
     except:
         pass
-    v = html.DIV("", Class="out")
-    v <= html.SPAN(serial(thing[:3]), Class="con")
-    v.outerHTML = v.outerHTML[:-6]
-    v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="edt", Id="v")
-    v.outerHTML += "</div>"
-    doc["c"] <= v
+    doc["c"] <= html.DIV()
+    doc["c"] <= html.SPAN(serial(thing[:3]), Class="con")
+    doc["c"] <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="edt", Id="v")
     v = doc["v"]
     v.bind("keydown", keys)
     v.contentEditable = 'true'
