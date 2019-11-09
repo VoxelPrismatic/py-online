@@ -8,19 +8,19 @@ stdin = ""
 def editable():
     doc["v"].contentEditable = 'true'
     doc["v"].bind("keydown", keys)
+    doc["v"].focus()
 def arrow(thing):
     try:
         v = doc["v"]
         v.contentEditable = 'false'
         v.id = "n"
         v.unbind("keydown")
-        v.
+        v.blur()
     except:
         pass
     v = html.DIV("", Class="out")
     v <= html.SPAN(serial(thing[:3]), Class="con")
     v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="edt", Id="v")
-    v.focus()
     return v
 def serial(st):
     st = st.replace("&", "&amp;")
