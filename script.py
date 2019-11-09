@@ -16,9 +16,10 @@ def arrow(thing):
     v = html.DIV("", Class="out")
     v <= html.SPAN(serial(thing[:3]), Class="con")
     v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="edt", Id="v")
-    v.contentEditable = 'true'
-    v.bind("keydown", keys)
     doc["c"] <= v
+    v = doc["v"]
+    v.bind("keydown", keys)
+    v.contentEditable = 'true'
     v.focus()
     return v
 def serial(st):
