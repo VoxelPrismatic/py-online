@@ -96,7 +96,6 @@
                     if thing == ">>> ":
                         thing = "... "
                     thing += "    "
-                    v.id = "n"
                     c <= arrow(thing)
                     editable()
                     return
@@ -112,7 +111,6 @@
                     except Exception as ex:
                         c <= html.DIV(serial(str(ex)), Class="err")
                     thing = ">>> "
-                    v.Id = "n"
                     c <= arrow(thing)
                     stdin = ""
                     editable()
