@@ -39,7 +39,6 @@ def interpret():
         stdin += "\n"+v.innerHTML.replace("\u200b", "").strip()
     else:
         stdin = v.innerHTML.replace("\u200b", "").strip()
-    print("stdin")
     if stdin.endswith(":"):
         if thing == ">>> ":
             thing = "... "
@@ -47,7 +46,6 @@ def interpret():
         c <= arrow(thing)
         editable()
         return
-    print("hi")
     if stdin.endswith("\n") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         print("here")
         try:
