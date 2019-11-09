@@ -35,9 +35,9 @@ def interpret():
     c = doc["c"]
     v = doc["v"]
     if stdin:
-        stdin += "\n"+v.innerHTML.replace("\u200b \u200b", " ")[1:]
+        stdin += "\n"+v.innerHTML.replace("\u200b", "").strip()
     else:
-        stdin = v.innerHTML.replace("\u200b \u200b", " ")[1:]
+        stdin = v.innerHTML.replace("\u200b", "").strip()
     print("stdin")
     if stdin.endswith(":"):
         if thing == ">>> ":
