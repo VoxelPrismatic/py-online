@@ -5,22 +5,21 @@ c.innerHTML += f"PYTHON {win.__BRYTHON__.__MAGIC__} ;]<br>READY<br>"
 global stdin, thing
 thing = ">>> "
 stdin = ""
-def editable():
-    doc["v"].contentEditable = 'true'
-    doc["v"].bind("keydown", keys)
-    doc["v"].focus()
 def arrow(thing):
     try:
         v = doc["v"]
         v.contentEditable = 'false'
         v.id = "n"
         v.unbind("keydown")
-        v.blur()
     except:
         pass
     v = html.DIV("", Class="out")
     v <= html.SPAN(serial(thing[:3]), Class="con")
     v <= html.SPAN(thing[3:].replace(" ", "\u200b \u200b"), Class="edt", Id="v")
+    v.contentEditable = 'true'
+    v.bind("keydown", keys)
+    doc["c"] <= v
+    v.focus()
     return v
 def serial(st):
     st = st.replace("&", "&amp;")
@@ -49,7 +48,6 @@ def interpret():
         if stdin.endswith(":"):
             thing += "    "
         c <= arrow(thing)
-        editable()
         return
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
@@ -66,11 +64,9 @@ def interpret():
         thing = ">>> "
         c <= arrow(thing)
         stdin = ""
-        editable()
   except Exception as ex:
     print(ex)
 def keys(k):
     if k.key == "Enter":
         interpret()
 c <= arrow(thing)
-editable()
