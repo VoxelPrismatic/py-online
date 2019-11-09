@@ -1,0 +1,30 @@
+.bg {
+    background-color: #112222;
+    color: #00ffff;
+    font-family: "Ubuntu Mono";
+} .console {
+    width: 90vw;
+    height: 90vh;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    color: #00ffff;
+} .err {
+    color: #ff0000;
+} .con {
+    color: #00ff00;
+} .rtn {
+    color: #ff0088;
+} .edt {
+    width: 90vw;
+    height: 90vh;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+} .out {
+    color: #00ffff;
+}
