@@ -68,7 +68,7 @@ def interpret():
             all["print"] = new_print
             exec(stdin.strip(), locals = all, globals = all)
             try:
-                out = eval(stdin.strip(), locals={"print": null_print}, globals=all)
+                out = eval(stdin, locals={"print": null_print}, globals=all)
             except:
                 out = None
             typ = str(type(out)).split("'")[1]
