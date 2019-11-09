@@ -1,7 +1,7 @@
 from browser import document as doc, html, window as win
 global c
 c = doc["c"]
-c.innerHTML += f"Brython Console // Python v{win.__BRYTHON__.__MAGIC__}<br>"
+c.innerHTML += f"PYTHON {win.__BRYTHON__.__MAGIC__} ;]<br>READY<br>"
 global stdin, thing
 thing = ">>> "
 stdin = ""
