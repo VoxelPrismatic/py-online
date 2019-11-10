@@ -1,4 +1,5 @@
 from browser import document as doc, html, window as win, timer
+import re
 global c
 c = doc["c"]
 ver = win.__BRYTHON__.__MAGIC__
@@ -42,8 +43,7 @@ def interpret():
     c = doc["c"]
     v = doc["v"]
     nl = v.innerHTML.replace("\u200b", "")[1:]
-    while nl[-1] == " ":
-        nl = nl[:-1]
+    nl = re.sub(r" *$", "", nl)
     if stdin:
         stdin += "\n"+nl
     else:
