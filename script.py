@@ -4,7 +4,7 @@ global c
 c = doc["c"]
 ver = win.__BRYTHON__.__MAGIC__
 c.innerHTML += f"<div style='text-align: center'>-------- PYTHON {ver} ;] --------</div>"
-c.innerHTML += f"<div style='text-align: center'>----- INTERPRETER v2.6.6 ;] -----</div>"
+c.innerHTML += f"<div style='text-align: center'>----- INTERPRETER v2.7.3 ;] -----</div>"
 global stdin, thing
 thing = ">>> "
 stdin = ""
