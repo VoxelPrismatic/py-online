@@ -49,7 +49,7 @@ def interpret():
     else:
         stdin = nl
     if nl.strip() and (stdin.endswith(":") or '.' in thing):
-        print(nl)
+        new_print(nl)
         if thing == ">>> ":
             thing = "... "
         thing = thing.strip()+" "
@@ -81,7 +81,7 @@ def interpret():
         timer.set_timeout(focuser, 5)
         stdin = ""
   except Exception as ex:
-    print(ex)
+    new_print(ex)
 def keys(k):
     if k.key == "Enter":
         interpret()
