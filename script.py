@@ -30,11 +30,11 @@ def serial(st):
     st = st.replace(" ", "\u200b \u200b")
     st = st.replace("\n", "<br>")
     return st
-del print
 global print
-def print(*args, end = "\n", sep = " "):
+def new_print(*args, end = "\n", sep = " "):
     st = sep.join(str(arg) for arg in args)+end
     doc["c"] <= html.DIV(serial(st), Class="out")
+print = new_print
 def null_print(*args, **kwargs):
     pass
 def focuser():
