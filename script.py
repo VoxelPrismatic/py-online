@@ -30,7 +30,7 @@ def serial(st):
     st = st.replace(" ", "\u200b \u200b")
     st = st.replace("\n", "<br>")
     return st
-def print(*args, end = "\n", sep = " "):
+def new_print(*args, end = "\n", sep = " "):
     st = sep.join(str(arg) for arg in args)+end
     doc["c"] <= html.DIV(serial(st), Class="out")
 def null_print(*args, **kwargs):
@@ -64,9 +64,13 @@ def interpret():
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         try:
-            exec(stdin.strip(), locals = globals(), globals = globals())
+            tmp = {"__builtins__": __builtins__}
+            tmp.update(globals())
+            tmp.update(locals())
+            tmp["print"] = new_print
+            exec(stdin.strip(), locals = tmp, globals = tmp)
             try:
-                out = eval(stdin, locals = {"print": null_print}, globals = globals())
+                out = eval(stdin, locals = {"print": null_print}, globals = tmp)
             except:
                 out = None
             typ = str(type(out)).split("'")[1]
