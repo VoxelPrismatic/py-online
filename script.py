@@ -48,7 +48,7 @@ def interpret():
         stdin += "\n"+nl
     else:
         stdin = nl
-    if stdin.endswith(":") or ('.' in thing and nl):
+    if stdin.endswith(":") or ('.' in thing and nl.strip()):
         if thing == ">>> ":
             thing = "... "
         thing = thing.strip()+" "
