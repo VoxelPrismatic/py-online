@@ -64,11 +64,8 @@ def interpret():
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         try:
-            tmp = {"__builtins__": __builtins__}
-            tmp.update(globals())
-            tmp.update(locals())
-            tmp["print"] = new_print
-            exec(stdin.strip(), locals = tmp, globals = tmp)
+            __builtins__.print = new_print
+            exec(stdin.strip(), locals = globals(), globals = globals())
             try:
                 out = eval(stdin, locals = {"print": null_print}, globals = tmp)
             except:
