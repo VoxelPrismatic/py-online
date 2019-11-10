@@ -30,11 +30,9 @@ def serial(st):
     st = st.replace(" ", "\u200b \u200b")
     st = st.replace("\n", "<br>")
     return st
-global print
-def new_print(*args, end = "\n", sep = " "):
+def print(*args, end = "\n", sep = " "):
     st = sep.join(str(arg) for arg in args)+end
     doc["c"] <= html.DIV(serial(st), Class="out")
-print = new_print
 def null_print(*args, **kwargs):
     pass
 def focuser():
@@ -66,7 +64,7 @@ def interpret():
     
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         try:
-            exec(stdin.strip(), locals = {"print": new_print}, globals = globals())
+            exec(stdin.strip(), locals = globals(), globals = globals())
             try:
                 out = eval(stdin, locals = {"print": null_print}, globals = globals())
             except:
