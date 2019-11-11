@@ -75,7 +75,7 @@ def interpret():
             typ = str(type(out)).split("'")[1]
             c <= html.DIV(serial(f"<{typ}> `{out}'"), Class="rtn")
         except Exception as ex:
-            c <= html.DIV(serial(f"{str(type(ex)).split("'")[1]} ] {ex}"), Class="err")
+            c <= html.DIV(serial(f"{str(type(ex)).split('\x27')[1]} ] {ex}"), Class="err")
         thing = ">>> "
         arrow(thing)
         timer.set_timeout(focuser, 5)
