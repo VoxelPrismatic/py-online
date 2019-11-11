@@ -1,10 +1,11 @@
 from browser import document as doc, html, window as win, timer
-import re
 global c
 c = doc["c"]
 ver = win.__BRYTHON__.__MAGIC__
 c.innerHTML += f"<div style='text-align: center'>-------- PYTHON {ver} ;] --------</div>"
 c.innerHTML += f"<div style='text-align: center'>----- INTERPRETER v2.7.3 ;] -----</div>"
+c.innerHTML += "<div>STARTING...</div>"
+import re
 global stdin, thing
 thing = ">>> "
 stdin = ""
@@ -42,8 +43,9 @@ def interpret():
     global stdin, thing
     c = doc["c"]
     v = doc["v"]
-    nl = v.innerHTML.replace("\u200b", "")[1:]
+    nl = v.innerHTML.replace("\u200b", "")
     nl = re.sub(r" *$", "", nl)
+    nl = nl[1:] if nl.startswith(" ") else nl
     if stdin:
         stdin += "\n"+nl
     else:
@@ -67,7 +69,8 @@ def interpret():
             __builtins__.print = new_print
             exec(stdin.strip(), locals = globals(), globals = globals())
             try:
-                out = eval(stdin, locals = {"print": null_print}, globals = tmp)
+                __builtins__.print = null_print
+                out = eval(stdin, locals = globals(), globals = globals())
             except:
                 out = None
             typ = str(type(out)).split("'")[1]
@@ -83,5 +86,6 @@ def interpret():
 def keys(k):
     if k.key == "Enter":
         interpret()
+c.innerHTML = c.innerHTML.replace("<div>STARTING...", "<div>READY</div>")
 arrow(thing)
 timer.set_timeout(focuser, 5)
