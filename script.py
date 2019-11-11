@@ -15,7 +15,6 @@ def arrow(thing):
         v.contentEditable = 'false'
         v.id = "n"
         v.unbind("keydown")
-        v.blur()
     except:
         pass
     doc["c"] <= html.DIV()
@@ -24,7 +23,6 @@ def arrow(thing):
     v = doc["v"]
     v.bind("keydown", keys)
     v.contentEditable = 'true'
-    v.focus()
 def serial(st):
     st = st.replace("&", "&amp;")
     st = st.replace("<", "&lt;")
