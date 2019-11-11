@@ -2,8 +2,8 @@ from browser import document as doc, html, window as win, timer
 global c
 c = doc["c"]
 ver = win.__BRYTHON__.__MAGIC__
-c.innerHTML += f"<div style='text-align: center'>-------- PYTHON {ver} ;] --------</div>"
-c.innerHTML += f"<div style='text-align: center'>----- INTERPRETER v2.7.3 ;] -----</div>"
+c.innerHTML += f"<div style='text-align: center'>-------[ PYTHON {ver} ;] ]-------</div>"
+c.innerHTML += f"<div style='text-align: center'>----[ INTERPRETER v3.4.6 ;] ]----</div>"
 c.innerHTML += "<div>STARTING...</div>"
 import re
 global stdin, thing
@@ -51,7 +51,7 @@ def interpret():
         stdin = nl
     if nl.strip() and (stdin.endswith(":") or '.' in thing):
         if thing == ">>> ":
-            thing = "... "
+            thing = "--- "
         thing = thing.strip()+" "
         for x in nl:
             if x != " ":
