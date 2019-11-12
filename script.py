@@ -59,6 +59,8 @@ def interpret():
             thing += " "
         if stdin.endswith(":"):
             thing += "    "
+        if nl.strip() == "pass" or nl.startswith("return") and len(thing) >= 8:
+            thing = thing[:-4]
         arrow(thing)
         timer.set_timeout(focuser, 5)
         return
@@ -66,6 +68,16 @@ def interpret():
     if stdin.endswith("<br>") or ">" in thing or v.innerHTML.replace("\u200b", "").strip() == "":
         if stdin.endswith("<br>"):
             stdin = "\n".join(stdin.splitlines()[:-1])
+            thing = thing.strip()+" "
+            for x in nl:
+                if x != " ":
+                    break
+                thing += " "
+            if stdin.endswith(":"):
+                thing += "    "
+            arrow(thing)
+            timer.set_timeout(focuser, 5)
+            return
         try:
             __builtins__.print = new_print
             exec(stdin.strip(), locals = globals(), globals = globals())
